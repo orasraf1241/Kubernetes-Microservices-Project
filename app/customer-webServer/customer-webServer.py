@@ -4,9 +4,11 @@ import json
 import os
 import requests
 from flask_cors import CORS  # Import CORS from flask_cors
+import datetime
+
+
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
 
 port = int(os.getenv('PORT', 3001))
 
@@ -24,8 +26,7 @@ producer = KafkaProducer(
 @app.route('/buy', methods=['POST'])
 def buy():
     data = request.json
-    if 'timestamp' not in data:
-        data['timestamp'] = None  # Set default value if timestamp is not provided
+    data['timestamp'] = datetime.datetime.utcnow().isoformat()  # Add timestamp
     producer.send('purchase', value=data)
     producer.flush()
     response = make_response('', 200)

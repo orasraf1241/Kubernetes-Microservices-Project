@@ -9,8 +9,8 @@ CUSTOMER_WEBSERVER_IMAGE_NAME="customer-web-server"
 FRONTEND_IMAGE_NAME="unity-frontend"
 
 CUSTOMER_MANAGEMENT_VERSION="1.0.12"
-CUSTOMER_WEBSERVER_VERSION="1.0.14"
-FRONTEND_VERSION="1.0.17"
+CUSTOMER_WEBSERVER_VERSION="1.1.0"
+FRONTEND_VERSION="1.1.3"
 
 # Function to build, tag, and push Docker images
 build_and_push() {
