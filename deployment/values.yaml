@@ -1,5 +1,13 @@
 # Configuration values for the Helm chart
 
+# frontend-chart/values.yaml
+frontend:
+  image: 851725517080.dkr.ecr.eu-west-1.amazonaws.com/unity-frontend:1.0.14
+  port: 80
+  replicas: 1
+
+
+
 # Customer Management Application Configuration
 customerManagement:
   # Docker image for the customer management application
