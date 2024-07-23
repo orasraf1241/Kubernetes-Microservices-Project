@@ -70,8 +70,8 @@ kubectl apply -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka
 kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-ephemeral.yaml -n kafka
 ```
 
-# you shold get this resource 
-kubectl get pods
+# Need to get this output 
+kubectl get pods -n kafka
 ```
 NAME                                          READY   STATUS    RESTARTS      AGE
 my-cluster-entity-operator-7dfb85ccf9-28dqd   3/3     Running   0             95s
@@ -83,7 +83,7 @@ my-cluster-zookeeper-1                        1/1     Running   0             2m
 my-cluster-zookeeper-2                        1/1     Running   0             2m21s
 strimzi-cluster-operator-f696c85f7-9fggx      1/1     Running   0             7m49s
 
-kubectl get services
+kubectl get services -n kafka
 
 NAME                          TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                               AGE
 kubernetes                    ClusterIP   10.96.0.1       <none>        443/TCP                               10m33s
