@@ -97,6 +97,7 @@ my-cluster-zookeeper-nodes    ClusterIP   None            <none>        2181/TCP
 
     ```sh
     cd ../deployment
+    kubectl apply ingress.yaml
     helm upgrade --install application .
     ```
 
