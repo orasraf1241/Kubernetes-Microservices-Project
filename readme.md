@@ -49,8 +49,8 @@ autoscaling resources for the software components based CPU and RAM
 1. **Clone the repository**:
 
     ```sh
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/orasraf1241/kafka-demo.git
+    cd https://github.com/orasraf1241/kafka-demo.git
     ```
 
 2. **Build and push Docker images**:
