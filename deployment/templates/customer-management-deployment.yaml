@@ -20,5 +20,10 @@ spec:
         envFrom:
         - configMapRef:
             name: customer-management-config
-      imagePullSecrets:
-      - name: ecr-registry-secret
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

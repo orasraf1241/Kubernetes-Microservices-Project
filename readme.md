@@ -1,6 +1,175 @@
+# Kubernetes Microservices Project with Helm and Autoscaling
+
+This project demonstrates a microservices architecture deployed on Kubernetes using Helm for packaging and deployment. The application consists of three primary services: `frontend`, `customer-management`, and `customer-web-server`. Additionally, the application uses MongoDB as a database and Kafka for messaging. The application is configured with Horizontal Pod Autoscalers (HPA) for autoscaling based on CPU and memory usage.
+
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Components](#components)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Testing Autoscaling](#testing-autoscaling)
+- [Cleanup](#cleanup)
+
+## Project Structure
+
+## Components
+
+### Frontend
+
+- **Dockerfile**: `app/frontend/Dockerfile`
+- **Code**: `app/frontend/app.py`, `app/frontend/static/app.js`, `app/frontend/templates/index.html`
+
+### Customer Management Service
+
+- **Dockerfile**: `app/customer-management/Dockerfile`
+- **Code**: `app/customer-management/customerManagement.py`, `app/customer-management/requirements.txt`
+
+### Customer Web Server
+
+- **Dockerfile**: `app/customer-webServer/Dockerfile`
+- **Code**: `app/customer-webServer/customer-webServer.py`, `app/customer-webServer/requirements.txt`
+
+### MongoDB
+
+- **Kubernetes Manifests**: `deployment/templates/mongodb-*`
+
+### Ingress
+
+- **Ingress Manifest**: `deployment/ingress.yaml`
+
+## Prerequisites
+
+- Kubernetes cluster
+- Helm
+- AWS CLI (for configuring AWS EKS and ALB Ingress Controller)
+- kubectl
+
+## Installation
+
+1. **Clone the repository**:
+
+    ```sh
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
+
+2. **Build and push Docker images**:
+
+    Modify `app/build-and-push.sh` to update the ECR registry and version as per your requirements, then run:
+
+    ```sh
+    cd app
+    ./build-and-push.sh
+    ```
+
+3. **Install the Helm chart**:
+
+    ```sh
+    cd ../deployment
+    helm upgrade --install application .
+    ```
+
+4. **Verify the deployment**:
+
+    ```sh
+    kubectl get all
+    ```
+
+## Configuration
+
+The Helm chart values can be configured by modifying the `values.yaml` file. Key configuration options include:
+
+### `frontend`
+
+- `image`: Docker image for the frontend.
+- `port`: Port for the frontend service.
+- `replicas`: Number of replicas for the frontend deployment.
+- `serviceName`: Name of the frontend service.
+- `customerWebServerUrl`: URL of the customer web server service.
+- `customerManagementUrl`: URL of the customer management service.
+
+### `customerManagement`
+
+- `image`: Docker image for the customer management service.
+- `port`: Port for the customer management service.
+- `replicas`: Number of replicas for the customer management deployment.
+- `mongoHost`: MongoDB host.
+- `mongoPort`: MongoDB port.
+- `kafkaBroker`: Kafka broker.
+- `kafkaGroupId`: Kafka group ID.
+- `mongoDatabase`: MongoDB database name.
+- `mongoCollection`: MongoDB collection name.
+
+### `customerWebServer`
+
+- `image`: Docker image for the customer web server service.
+- `port`: Port for the customer web server service.
+- `replicas`: Number of replicas for the customer web server deployment.
+- `kafkaBroker`: Kafka broker.
+- `managementServiceHost`: Hostname for the customer management service.
+- `managementServicePort`: Port for the customer management service.
+
+### `mongo`
+
+- `image`: Docker image for MongoDB.
+- `port`: Port for MongoDB.
+- `replicas`: Number of replicas for MongoDB deployment.
+- `storage`: Persistent volume size for MongoDB.
+- `hostPath`: Host path for the persistent volume.
+
+## Testing Autoscaling
+
+1. **Simulate Load**:
+
+    ```sh
+    kubectl run -i --tty load-generator --image=busybox /bin/sh
+    ```
+
+2. **Generate CPU Load**:
+
+    Inside the container, run a loop to generate CPU load:
+
+    ```sh
+    while true; do wget -q -O- http://<your-service-name>; done
+    ```
+
+    Replace `<your-service-name>` with the appropriate service name.
+
+3. **Monitor HPA**:
+
+    ```sh
+    kubectl get hpa
+    ```
+
+    Ensure that the HPA scales the pods based on the load.
+
+## Cleanup
+
+To remove the Helm release and clean up the resources:
+
+```sh
+helm uninstall application
+```
+
+To remove the generated load pod:
+```
+kubectl delete pod load-generator
+```
+
+
+
+
 # Customer Purchase System
 
 ## Setup
+
+
+
+# installing the metrixs server 
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
 # installing kafka 
 kubectl apply -f 'https://strimzi.io/install/latest?namespace=default' -n default
 

@@ -26,5 +26,13 @@ spec:
           value: "{{ .Values.customerWebServer.managementServiceHost }}"
         - name: MANAGEMENT_SERVICE_PORT
           value: "{{ .Values.customerWebServer.managementServicePort }}"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
       imagePullSecrets:
       - name: ecr-registry-secret
+      
