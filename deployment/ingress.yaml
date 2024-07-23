@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/success-codes: '200,302'
+    alb.ingress.kubernetes.io/load-balancer-attributes: 'idle_timeout.timeout_seconds=60'
+spec:
+  ingressClassName: alb
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+      - path: /purchases
+        pathType: Prefix
+        backend:
+          service:
+            name: customer-management-service
+            port:
+              number: 3000
+      - path: /getAllUserBuys
+        pathType: Prefix
+        backend:
+          service:
+            name: customer-web-server-service
+            port:
+              number: 3001

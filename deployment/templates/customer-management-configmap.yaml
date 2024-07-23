@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: customer-management-config
+data:
+  PORT: "{{ .Values.customerManagement.port }}"
+  MONGO_HOST: "{{ .Values.customerManagement.mongoHost }}"
+  MONGO_PORT: "{{ .Values.customerManagement.mongoPort }}"
+  KAFKA_BROKER: "{{ .Values.customerManagement.kafkaBroker }}"
+  KAFKA_GROUP_ID: "{{ .Values.customerManagement.kafkaGroupId }}"
+  MONGO_DATABASE: "{{ .Values.customerManagement.mongoDatabase }}"
+  MONGO_COLLECTION: "{{ .Values.customerManagement.mongoCollection }}"

@@ -1,0 +1,53 @@
+# Configuration values for the Helm chart
+
+# Customer Management Application Configuration
+customerManagement:
+  # Docker image for the customer management application
+  image: 851725517080.dkr.ecr.eu-west-1.amazonaws.com/customer-management:1.0.12
+  # Port on which the customer management application will run
+  port: 3000
+  # Number of replicas for the customer management deployment
+  replicas: 1
+  # MongoDB host for the customer management application
+  mongoHost: mongo
+  # MongoDB port for the customer management application
+  mongoPort: 27017
+  # Kafka broker for the customer management application
+  kafkaBroker: my-cluster-kafka-bootstrap:9092
+  # Kafka group ID for the customer management application
+  kafkaGroupId: my-group
+  # MongoDB database name for the customer management application
+  mongoDatabase: mydatabase
+  # MongoDB collection name for the customer management application
+  mongoCollection: purchases
+
+
+
+
+# Customer Web Server Application Configuration
+customerWebServer:
+  # Docker image for the customer web server application
+  image: 851725517080.dkr.ecr.eu-west-1.amazonaws.com/customer-web-server:1.0.12
+  # Port on which the customer web server application will run
+  port: 3001
+  # Number of replicas for the customer web server deployment
+  replicas: 1
+  # Kafka broker for the customer web server application
+  kafkaBroker: my-cluster-kafka-bootstrap:9092
+  # Hostname for the customer management service
+  managementServiceHost: customer-management-service
+  # Port for the customer management service
+  managementServicePort: 3000
+
+# MongoDB Configuration
+mongo:
+  # Docker image for MongoDB
+  image: mongo:4.4
+  # Port on which MongoDB will run
+  port: 27017
+  # Number of replicas for the MongoDB deployment
+  replicas: 1
+  # Persistent volume size for MongoDB
+  storage: 1Gi
+  # Host path for the persistent volume
+  hostPath: /mnt/data

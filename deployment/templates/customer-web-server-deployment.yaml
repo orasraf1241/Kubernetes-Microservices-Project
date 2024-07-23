@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-web-server
+spec:
+  replicas: {{ .Values.customerWebServer.replicas }}
+  selector:
+    matchLabels:
+      app: customer-web-server
+  template:
+    metadata:
+      labels:
+        app: customer-web-server
+    spec:
+      containers:
+      - name: customer-web-server
+        image: {{ .Values.customerWebServer.image }}
+        ports:
+        - containerPort: {{ .Values.customerWebServer.port }}
+        env:
+        - name: PORT
+          value: "{{ .Values.customerWebServer.port }}"
+        - name: KAFKA_BROKER
+          value: "{{ .Values.customerWebServer.kafkaBroker }}"
+        - name: MANAGEMENT_SERVICE_HOST
+          value: "{{ .Values.customerWebServer.managementServiceHost }}"
+        - name: MANAGEMENT_SERVICE_PORT
+          value: "{{ .Values.customerWebServer.managementServicePort }}"
+      imagePullSecrets:
+      - name: ecr-registry-secret
