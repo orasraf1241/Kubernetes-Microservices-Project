@@ -18,3 +18,8 @@ spec:
         image: {{ .Values.frontend.image }}
         ports:
         - containerPort: {{ .Values.frontend.port }}
+        env:
+        - name: CUSTOMER_WEB_SERVER_URL
+          value: {{ .Values.frontend.customerWebServerUrl }}
+        - name: CUSTOMER_MANAGEMENT_URL
+          value: {{ .Values.frontend.customerManagementUrl }}
