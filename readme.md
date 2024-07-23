@@ -63,9 +63,11 @@ autoscaling resources for the software components based CPU and RAM
     ```
 3. **Install kafka**:
 ```
-kubectl apply -f 'https://strimzi.io/install/latest?namespace=default' -n default
+k create  namespace kafka 
+kubectl apply -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka
 
-kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-ephemeral.yaml -n default
+
+kubectl apply -f https://strimzi.io/examples/latest/kafka/kafka-ephemeral.yaml -n kafka
 ```
 
 # you shold get this resource 
@@ -212,7 +214,7 @@ The Helm chart values can be configured by modifying the `values.yaml` file. Key
 To remove the Helm release and clean up the resources:
 
 ```sh
-kubectl delete -f 'https://strimzi.io/install/latest?namespace=default' -n default
+kubectl delete -f 'https://strimzi.io/install/latest?namespace=default' -n kafka
 
 kubectl delete -f https://strimzi.io/examples/latest/kafka/kafka-ephemeral.yaml -n default
 

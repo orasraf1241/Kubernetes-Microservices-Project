@@ -1,5 +1,7 @@
 # Configuration values for the Helm chart
 
+
+
 # frontend-chart/values.yaml
 frontend:
   # Docker image for the frontend application
@@ -36,7 +38,7 @@ customerManagement:
   # MongoDB port for the customer management application
   mongoPort: 27017
   # Kafka broker for the customer management application
-  kafkaBroker: my-cluster-kafka-bootstrap:9092
+  kafkaBroker: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
   # Kafka group ID for the customer management application
   kafkaGroupId: my-group
   # MongoDB database name for the customer management application
@@ -61,7 +63,7 @@ customerWebServer:
   # Number of replicas for the customer web server deployment
   replicas: 1
   # Kafka broker for the customer web server application
-  kafkaBroker: my-cluster-kafka-bootstrap:9092
+  kafkaBroker: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
   # Hostname for the customer management service
   managementServiceHost: customer-management-service
   # Port for the customer management service
