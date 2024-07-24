@@ -15,8 +15,8 @@ Additionally, the application uses MongoDB as a database and Kafka for messaging
 - [Debugging Kafka](#debugging-kafka)
 - [Cleanup](#cleanup)
 
-## Architecture
-
+## Application Architecture
+![Application Architecture Diagram](image.png)
 ### MongoDB
 - Store the user’s purchases in MongoDB.
 
